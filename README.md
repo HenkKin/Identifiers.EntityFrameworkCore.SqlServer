@@ -1,27 +1,27 @@
-Identifiers.EntityFrameworkCore
-===============================
+Identifiers.EntityFrameworkCore.SqlServer
+=========================================
 
-[![NuGet](https://img.shields.io/nuget/dt/Identifiers.EntityFrameworkCore.svg)](https://www.nuget.org/packages/Identifiers.EntityFrameworkCore) 
-[![NuGet](https://img.shields.io/nuget/vpre/Identifiers.EntityFrameworkCore.svg)](https://www.nuget.org/packages/Identifiers.EntityFrameworkCore)
+[![NuGet](https://img.shields.io/nuget/dt/Identifiers.EntityFrameworkCore.SqlServer.svg)](https://www.nuget.org/packages/Identifiers.EntityFrameworkCore.SqlServer) 
+[![NuGet](https://img.shields.io/nuget/vpre/Identifiers.EntityFrameworkCore.SqlServer.svg)](https://www.nuget.org/packages/Identifiers.EntityFrameworkCore.SqlServer)
 
 ### Summary
 
-The Identifiers.EntityFrameworkCore library is an extension on [Identifiers](https://github.com/HenkKin/Identifiers/).
+The Identifiers.EntityFrameworkCore.SqlServer library is an extension on [Identifiers](https://github.com/HenkKin/Identifiers/).
 
 This library is Cross-platform, supporting `netstandard2.1`.
 
 
-### Installing Identifiers.EntityFrameworkCore
+### Installing Identifiers.EntityFrameworkCore.SqlServer
 
-You should install [Identifiers.EntityFrameworkCore with NuGet](https://www.nuget.org/packages/Identifiers.EntityFrameworkCore):
+You should install [Identifiers.EntityFrameworkCore.SqlServer with NuGet](https://www.nuget.org/packages/Identifiers.EntityFrameworkCore.SqlServer):
 
-    Install-Package Identifiers.EntityFrameworkCore
+    Install-Package Identifiers.EntityFrameworkCore.SqlServer
 
 Or via the .NET Core command line interface:
 
-    dotnet add package Identifiers.EntityFrameworkCore
+    dotnet add package Identifiers.EntityFrameworkCore.SqlServer
 
-Either commands, from Package Manager Console or .NET Core CLI, will download and install Identifiers.EntityFrameworkCore and all required dependencies.
+Either commands, from Package Manager Console or .NET Core CLI, will download and install Identifiers.EntityFrameworkCore.SqlServer and all required dependencies.
 
 ### Dependencies
 
@@ -31,14 +31,14 @@ Either commands, from Package Manager Console or .NET Core CLI, will download an
 
 ### Usage
 
-IIf you're using EntityFrameworkCore and you want to use this Identifier type in your entities, then you can use [Identifiers.EntityFrameworkCore](https://github.com/HenkKin/Identifiers.EntityFrameworkCore/) package which includes a `DbContextOptionsBuilder.UseIdentifiers<[InternalClrType:short|int|long|Guid]>()` extension method, allowing you to register all needed IValueConverterSelectors and IMigrationsAnnotationProviders. 
+IIf you're using EntityFrameworkCore and you want to use this Identifier type in your entities, then you can use [Identifiers.EntityFrameworkCore.SqlServer](https://github.com/HenkKin/Identifiers.EntityFrameworkCore.SqlServer/) package which includes a `DbContextOptionsBuilder.UseIdentifiers<[InternalClrType:short|int|long|Guid]>()` extension method, allowing you to register all needed IValueConverterSelectors and IMigrationsAnnotationProviders. 
 It also includes a `PropertyBuilder<Identifier>.IdentifierValueGeneratedOnAdd()` extension method, allowing you to register all needed configuration to use `SqlServerValueGenerationStrategy.IdentityColumn`. 
 
 To use it:
 
 ```csharp
 ...
-using Identifiers.EntityFrameworkCore;
+using Identifiers.EntityFrameworkCore.SqlServer;
 
 public class Startup
 {
@@ -67,7 +67,8 @@ Using the PropertyBuilder:
 
 ```csharp
 ...
-using Identifiers.EntityFrameworkCore;
+using Identifiers.EntityFrameworkCore.SqlServer;
+
 public class YourDbContext : DbContext
 {
     ...
