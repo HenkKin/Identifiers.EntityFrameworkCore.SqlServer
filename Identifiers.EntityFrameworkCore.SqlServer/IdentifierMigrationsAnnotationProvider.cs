@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Identifiers.EntityFrameworkCore.SqlServer
 {
-    public class IdentifierIdentityAnnotationProvider : MigrationsAnnotationProvider
+    public class IdentifierMigrationsAnnotationProvider : MigrationsAnnotationProvider
     {
-        public IdentifierIdentityAnnotationProvider(MigrationsAnnotationProviderDependencies dependencies)
+        public IdentifierMigrationsAnnotationProvider(MigrationsAnnotationProviderDependencies dependencies)
             : base(dependencies)
         {
         }
