@@ -3,6 +3,7 @@ Identifiers.EntityFrameworkCore.SqlServer
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/HenkKin/Identifiers.EntityFrameworkCore.SqlServer?branch=master&svg=true)](https://ci.appveyor.com/project/HenkKin/Identifiers.EntityFrameworkCore.SqlServer) 
 [![NuGet](https://img.shields.io/nuget/dt/Identifiers.EntityFrameworkCore.SqlServer.svg)](https://www.nuget.org/packages/Identifiers.EntityFrameworkCore.SqlServer) 
 [![NuGet](https://img.shields.io/nuget/vpre/Identifiers.EntityFrameworkCore.SqlServer.svg)](https://www.nuget.org/packages/Identifiers.EntityFrameworkCore.SqlServer)
+[![BCH compliance](https://bettercodehub.com/edge/badge/HenkKin/Identifiers.EntityFrameworkCore.SqlServer?branch=master)](https://bettercodehub.com/)
 
 ### Summary
 
