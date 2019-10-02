@@ -5,11 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Identifiers.EntityFrameworkCore.SqlServer
 {
-    /// <summary>
-    /// Thanks to https://andrewlock.net/strongly-typed-ids-in-ef-core-using-strongly-typed-entity-ids-to-avoid-primitive-obsession-part-4/
-    /// </summary>
-    /// <typeparam name="TDatabaseClrType"></typeparam>
-    public class IdentifierValueConverterSelector<TDatabaseClrType> : ValueConverterSelector where TDatabaseClrType : IConvertible
+    internal class IdentifierValueConverterSelector<TDatabaseClrType> : ValueConverterSelector
     {
         // The dictionary in the base type is private, so we need our own one here.
         private readonly ConcurrentDictionary<(Type ModelClrType, Type ProviderClrType), ValueConverterInfo> _converters

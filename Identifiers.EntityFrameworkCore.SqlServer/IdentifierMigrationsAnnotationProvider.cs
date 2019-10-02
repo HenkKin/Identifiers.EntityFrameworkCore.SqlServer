@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Identifiers.EntityFrameworkCore.SqlServer
 {
-    public class IdentifierMigrationsAnnotationProvider : MigrationsAnnotationProvider
+    internal class IdentifierMigrationsAnnotationProvider : MigrationsAnnotationProvider
     {
         public IdentifierMigrationsAnnotationProvider(MigrationsAnnotationProviderDependencies dependencies)
             : base(dependencies)
@@ -20,7 +20,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer
             var annotation = property.FindAnnotation("Identifier");
             return annotation == null
                 ? baseAnnotations
-                : baseAnnotations.Concat(new[] { new Annotation("SqlServer:ValueGenerationStrategy", annotation.Value)  });
+                : baseAnnotations.Concat(new[] { new Annotation("SqlServer:ValueGenerationStrategy", annotation.Value) });
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer
 {
     public static class IdentifierSqlServerDbContextOptionsExtensions
     {
-        public static DbContextOptionsBuilder UseIdentifiers<TDatabaseClrType>(this DbContextOptionsBuilder optionsBuilder) where TDatabaseClrType : IConvertible
+        public static DbContextOptionsBuilder UseIdentifiers<TDatabaseClrType>(this DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.ReplaceService<IMigrationsAnnotationProvider, IdentifierMigrationsAnnotationProvider>();
             optionsBuilder.ReplaceService<IValueConverterSelector, IdentifierValueConverterSelector<TDatabaseClrType>>();

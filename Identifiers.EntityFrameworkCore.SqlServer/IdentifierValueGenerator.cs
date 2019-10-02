@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 namespace Identifiers.EntityFrameworkCore.SqlServer
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "EF1001:Internal EF Core API usage.", Justification = "<Pending>")]
-    public class IdentifierValueGenerator<TDatabaseClrType> : ValueGenerator<Identifier> where TDatabaseClrType : IConvertible
+    internal class IdentifierValueGenerator<TDatabaseClrType> : ValueGenerator<Identifier>
     {
         private readonly ValueGenerator _valueGenerator;
 
-        public IdentifierValueGenerator() 
+        public IdentifierValueGenerator()
         {
             if (typeof(TDatabaseClrType) == typeof(short))
             {
