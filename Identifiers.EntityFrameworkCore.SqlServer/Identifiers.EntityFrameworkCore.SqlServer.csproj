@@ -10,22 +10,16 @@
     <RepositoryUrl>https://github.com/HenkKin/Identifiers.EntityFrameworkCore.SqlServer.git</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Identifiers id int guid di DependencyInjection Core EntityFramework EF SqlServer</PackageTags>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile />
-    <DelaySign>false</DelaySign>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
 
   <ItemGroup>
-    <PackageReference Include="Identifiers" Version="1.0.1" />
+    <PackageReference Include="Identifiers" Version="1.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
   </ItemGroup>
 </Project>
