@@ -9,7 +9,9 @@ namespace Identifiers.EntityFrameworkCore.SqlServer
             : base(
                 id => id.GetValue() == null ? default : (TDatabaseClrType)Convert.ChangeType(id.GetValue(), typeof(TDatabaseClrType)),
                 value => new Identifier(value),
-                new ConverterMappingHints(valueGeneratorFactory: (p, t) => new IdentifierValueGenerator<TDatabaseClrType>())
+                mappingHints == null
+                    ? new ConverterMappingHints(valueGeneratorFactory: (p, t) => new IdentifierValueGenerator<TDatabaseClrType>())
+                    : mappingHints.With(new ConverterMappingHints(valueGeneratorFactory: (p, t) => new IdentifierValueGenerator<TDatabaseClrType>()))
             )
         { }
     }
