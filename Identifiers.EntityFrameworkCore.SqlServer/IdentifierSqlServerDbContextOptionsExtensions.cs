@@ -8,7 +8,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer
     {
         public static DbContextOptionsBuilder UseIdentifiers<TDatabaseClrType>(this DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.ReplaceService<IMigrationsAnnotationProvider, IdentifierMigrationsAnnotationProvider>();
+            optionsBuilder.ReplaceService<IMigrationsAnnotationProvider, IdentifierMigrationsAnnotationProvider<TDatabaseClrType>>();
             optionsBuilder.ReplaceService<IValueConverterSelector, IdentifierValueConverterSelector<TDatabaseClrType>>();
 
             return optionsBuilder;

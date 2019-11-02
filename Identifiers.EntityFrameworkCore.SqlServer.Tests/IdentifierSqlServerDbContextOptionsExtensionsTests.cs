@@ -29,7 +29,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
 
             // Assert
             Assert.NotNull(testDbContext);
-            Assert.NotEqual(typeof(IdentifierMigrationsAnnotationProvider), migrationsAnnotationProvider.GetType());
+            Assert.NotEqual(typeof(IdentifierMigrationsAnnotationProvider<>), migrationsAnnotationProvider.GetType());
             Assert.Equal(typeof(SqlServerMigrationsAnnotationProvider), migrationsAnnotationProvider.GetType());
             Assert.NotEqual(typeof(IdentifierValueConverterSelector<int>), valueConverterSelector.GetType());
             Assert.Equal(typeof(ValueConverterSelector), valueConverterSelector.GetType());
@@ -54,7 +54,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
             // Assert
             Assert.NotNull(testDbContext);
 
-            Assert.Equal(typeof(IdentifierMigrationsAnnotationProvider), migrationsAnnotationProvider.GetType());
+            Assert.Equal(typeof(IdentifierMigrationsAnnotationProvider<int>), migrationsAnnotationProvider.GetType());
         }
 
 
@@ -73,7 +73,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
 
             // Act
             var valueConverterSelector = testDbContext.GetService<IValueConverterSelector>();
-            
+
             // Assert
             Assert.NotNull(testDbContext);
             Assert.Equal(typeof(IdentifierValueConverterSelector<int>), valueConverterSelector.GetType());
@@ -83,7 +83,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
         {
             public TestDbContext(DbContextOptions<TestDbContext> options) : base(options)
             {
-                
+
             }
         }
     }

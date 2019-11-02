@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
 using System.Linq;
-using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.SqlServer.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Xunit;
 
 namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
@@ -15,9 +16,9 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
         public void For_WhenCalledWithoutExistingAnnotation_ItShouldReturnExistingAnnotations()
         {
             // Arrange
-            var identifierMigrationsAnnotationProvider = new IdentifierMigrationsAnnotationProvider(new MigrationsAnnotationProviderDependencies());
+            var identifierMigrationsAnnotationProvider = new IdentifierMigrationsAnnotationProvider<int>(new MigrationsAnnotationProviderDependencies());
             var entityType = new EntityType(typeof(object), new Model(), ConfigurationSource.DataAnnotation);
-            IProperty property = new Property("id", typeof(int), null, null, entityType, ConfigurationSource.DataAnnotation, null);
+            IProperty property = new Property("id", typeof(Identifier), null, null, entityType, ConfigurationSource.DataAnnotation, null);
 
             // Act
             var results = identifierMigrationsAnnotationProvider.For(property);
@@ -27,29 +28,37 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
         }
 
         [Fact]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "EF1001:Internal EF Core API usage.", Justification = "<Pending>")]
         public void For_WhenCalledForPropertyWithExistingAnnotations_ItShouldReturnExistingAnnotations()
         {
             // Arrange
-            var identifierMigrationsAnnotationProvider = new IdentifierMigrationsAnnotationProvider(new MigrationsAnnotationProviderDependencies());
+            var identifierMigrationsAnnotationProvider = new IdentifierMigrationsAnnotationProvider<int>(new MigrationsAnnotationProviderDependencies());
 
             var conventionSet = new ConventionSet();
-            var entityType = new EntityType(typeof(Entity), new Model(conventionSet), ConfigurationSource.DataAnnotation);
-            
-            Property property = new Property("Id", typeof(int), null, null, entityType, ConfigurationSource.DataAnnotation, null);
-            property.AddAnnotation("Identifier", 12);
+            var model = new Model(conventionSet);
+            model.AddAnnotation(SqlServerAnnotationNames.ValueGenerationStrategy,
+                SqlServerValueGenerationStrategy.IdentityColumn);
+
+            var converter = new IdentifierValueConverter<int>(new ConverterMappingHints(valueGeneratorFactory: (property1, type) => new IdentifierValueGenerator<int>()));
+
+            var property = model.AddEntityType(typeof(Entity), ConfigurationSource.Explicit)
+                .AddProperty("Id", typeof(Identifier), ConfigurationSource.Explicit, ConfigurationSource.Explicit);
+            property.ValueGenerated = ValueGenerated.OnAdd;
+            property.SetValueConverter(converter);
+            property.AddAnnotation("Identifier", SqlServerValueGenerationStrategy.IdentityColumn);
 
             // Act
             var results = identifierMigrationsAnnotationProvider.For(property).ToList();
 
             // Assert
             Assert.Single(results);
-            Assert.Equal("SqlServer:ValueGenerationStrategy", results.First().Name);
-            Assert.Equal(12, results.First().Value);
+            Assert.Equal("SqlServer:Identity", results.First().Name);
+            Assert.Equal("1, 1", results.First().Value);
         }
 
         public class Entity
         {
-            public int Id { get; set; }
+            public Identifier Id { get; set; }
         }
     }
 }
