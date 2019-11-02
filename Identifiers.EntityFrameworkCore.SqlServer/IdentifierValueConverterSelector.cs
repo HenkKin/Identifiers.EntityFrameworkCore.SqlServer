@@ -7,6 +7,9 @@ namespace Identifiers.EntityFrameworkCore.SqlServer
 {
     internal class IdentifierValueConverterSelector<TDatabaseClrType> : ValueConverterSelector
     {
+        // Create an instance of the converter whenever it's requested.
+        private static ValueConverter ValueConverterFactory(ValueConverterInfo info) => new IdentifierValueConverter<TDatabaseClrType>(info.MappingHints);
+
         // The dictionary in the base type is private, so we need our own one here.
         private readonly ConcurrentDictionary<(Type ModelClrType, Type ProviderClrType), ValueConverterInfo> _converters
             = new ConcurrentDictionary<(Type ModelClrType, Type ProviderClrType), ValueConverterInfo>();
@@ -34,18 +37,8 @@ namespace Identifiers.EntityFrameworkCore.SqlServer
 
                 yield return _converters.GetOrAdd(
                     (underlyingModelType, typeof(TDatabaseClrType)),
-                    k =>
-                    {
-                        // Create an instance of the converter whenever it's requested.
-                        Func<ValueConverterInfo, ValueConverter> factory =
-                            info => new IdentifierValueConverter<TDatabaseClrType>(info.MappingHints);
-
-                        // (ValueConverter) Activator.CreateInstance(converterType, info.MappingHints);
-
-                        // Build the info for our strongly-typed ID => TType converter
-                        return new ValueConverterInfo(modelClrType, typeof(TDatabaseClrType), factory);
-                    }
-                );
+                    // Build the info for our strongly-typed ID => TType converter
+                    k => new ValueConverterInfo(modelClrType, typeof(TDatabaseClrType), ValueConverterFactory));
             }
         }
 

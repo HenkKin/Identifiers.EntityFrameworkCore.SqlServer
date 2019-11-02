@@ -9,6 +9,7 @@ using Xunit;
 
 namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "EF1001:Internal EF Core API usage.", Justification = "<Pending>")]
     public class IdentifierValueGeneratorTests
     {
         [Fact]
