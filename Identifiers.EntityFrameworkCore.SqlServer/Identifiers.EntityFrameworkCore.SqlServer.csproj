@@ -1,25 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Authors>Henk Kin</Authors>
     <Company>Henk Kin</Company>
-    <Description>.NET Core DependencyInjection Integration for Identifiers with EntityFrameworkCore.SqlServer</Description>
-    <Copyright>Henk Kin</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/HenkKin/Identifiers.EntityFrameworkCore.SqlServer</PackageProjectUrl>
     <RepositoryUrl>https://github.com/HenkKin/Identifiers.EntityFrameworkCore.SqlServer.git</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>Identifiers id int guid di DependencyInjection Core EntityFramework EF SqlServer</PackageTags>
-    <Version>1.0.5</Version>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Description>.NET Core DependencyInjection Integration for Identifiers with EntityFrameworkCore.SqlServer</Description>
+    <Copyright>Henk Kin</Copyright>
+    <Version>1.0.6</Version>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
-
-
   <ItemGroup>
-    <PackageReference Include="Identifiers" Version="1.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+    <PackageReference Include="Identifiers" Version="1.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>

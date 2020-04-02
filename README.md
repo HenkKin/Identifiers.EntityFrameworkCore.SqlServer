@@ -11,7 +11,6 @@ The Identifiers.EntityFrameworkCore.SqlServer library is an extension on [Identi
 
 This library is Cross-platform, supporting `netstandard2.1`.
 
-
 ### Installing Identifiers.EntityFrameworkCore.SqlServer
 
 You should install [Identifiers.EntityFrameworkCore.SqlServer with NuGet](https://www.nuget.org/packages/Identifiers.EntityFrameworkCore.SqlServer):
@@ -82,3 +81,20 @@ public class YourDbContext : DbContext
     }
     ...
 ```
+
+### Debugging
+
+If you want to debug the source code, thats possible. [SourceLink](https://github.com/dotnet/sourcelink) is enabled. To use it, you  have to change Visual Studio Debugging options:
+
+Debug => Options => Debugging => General
+
+Set the following settings:
+
+[&nbsp;&nbsp;] Enable Just My Code
+
+[X] Enable source server support
+
+[X] Enable source link support
+
+
+Now you can use 'step into' (F11).
