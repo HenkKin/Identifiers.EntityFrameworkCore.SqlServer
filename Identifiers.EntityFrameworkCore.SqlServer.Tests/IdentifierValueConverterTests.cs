@@ -85,7 +85,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
             var identifierValueConverter = new IdentifierValueConverter<int>(new ConverterMappingHints());
 
             var conventionSet = new ConventionSet();
-            var entityType = new EntityType(typeof(IdentifierMigrationsAnnotationProviderTests.Entity), new Model(conventionSet), ConfigurationSource.DataAnnotation);
+            var entityType = new EntityType(typeof(IdentifierSqlServerAnnotationProviderTests.Entity), new Model(conventionSet), ConfigurationSource.DataAnnotation);
             Property property = new Property("Id", typeof(int), null, null, entityType, ConfigurationSource.DataAnnotation, null);
 
 
