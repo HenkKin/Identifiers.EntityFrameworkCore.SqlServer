@@ -4,14 +4,16 @@ using DataAccessClientExample.DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.IntDatabase
+namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.GuidDatabase
 {
-    [DbContext(typeof(IntDbContext))]
-    partial class IntDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(GuidDbContext))]
+    [Migration("20201105095315_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,16 +59,15 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.IntDataba
 
             modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIdentifierEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Test")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("Test")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -75,16 +76,15 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.IntDataba
 
             modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIdentifierEntityTranslation", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ExampleIdentifierEntityId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ExampleIdentifierEntityId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LocaleId")
                         .HasColumnType("nvarchar(max)");

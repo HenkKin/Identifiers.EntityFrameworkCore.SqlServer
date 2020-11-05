@@ -19,55 +19,217 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.GuidDatab
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0-rc.2.20475.6");
 
-            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleEntity", b =>
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleGuidEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasAnnotation("Identifier", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("Test")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ExampleEntities");
+                    b.ToTable("ExampleGuidEntities");
                 });
 
-            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleEntityTranslation", b =>
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleGuidEntityTranslation", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("ExampleGuidEntityId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("LocaleId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TranslatedEntityId")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.Property<Guid?>("TranslatedEntityId1")
+                    b.HasIndex("ExampleGuidEntityId");
+
+                    b.ToTable("ExampleGuidEntityTranslation");
+                });
+
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIdentifierEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("Test")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TranslatedEntityId1");
-
-                    b.ToTable("ExampleEntityTranslation");
+                    b.ToTable("ExampleIdentifierEntities");
                 });
 
-            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleEntityTranslation", b =>
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIdentifierEntityTranslation", b =>
                 {
-                    b.HasOne("DataAccessClientExample.DataLayer.ExampleEntity", "TranslatedEntity")
-                        .WithMany("Translations")
-                        .HasForeignKey("TranslatedEntityId1");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Navigation("TranslatedEntity");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ExampleIdentifierEntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LocaleId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExampleIdentifierEntityId");
+
+                    b.ToTable("ExampleIdentifierEntityTranslation");
                 });
 
-            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleEntity", b =>
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIntEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int?>("Test")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExampleIntEntities");
+                });
+
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIntEntityTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ExampleIntEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LocaleId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExampleIntEntityId");
+
+                    b.ToTable("ExampleIntEntityTranslation");
+                });
+
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleLongEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<long?>("Test")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExampleLongEntities");
+                });
+
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleLongEntityTranslation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ExampleLongEntityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LocaleId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExampleLongEntityId");
+
+                    b.ToTable("ExampleLongEntityTranslation");
+                });
+
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleGuidEntityTranslation", b =>
+                {
+                    b.HasOne("DataAccessClientExample.DataLayer.ExampleGuidEntity", "ExampleGuidEntity")
+                        .WithMany("Translations")
+                        .HasForeignKey("ExampleGuidEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExampleGuidEntity");
+                });
+
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIdentifierEntityTranslation", b =>
+                {
+                    b.HasOne("DataAccessClientExample.DataLayer.ExampleIdentifierEntity", "ExampleIdentifierEntity")
+                        .WithMany("Translations")
+                        .HasForeignKey("ExampleIdentifierEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExampleIdentifierEntity");
+                });
+
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIntEntityTranslation", b =>
+                {
+                    b.HasOne("DataAccessClientExample.DataLayer.ExampleIntEntity", "ExampleIntEntity")
+                        .WithMany("Translations")
+                        .HasForeignKey("ExampleIntEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExampleIntEntity");
+                });
+
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleLongEntityTranslation", b =>
+                {
+                    b.HasOne("DataAccessClientExample.DataLayer.ExampleLongEntity", "ExampleLongEntity")
+                        .WithMany("Translations")
+                        .HasForeignKey("ExampleLongEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExampleLongEntity");
+                });
+
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleGuidEntity", b =>
+                {
+                    b.Navigation("Translations");
+                });
+
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIdentifierEntity", b =>
+                {
+                    b.Navigation("Translations");
+                });
+
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIntEntity", b =>
+                {
+                    b.Navigation("Translations");
+                });
+
+            modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleLongEntity", b =>
                 {
                     b.Navigation("Translations");
                 });

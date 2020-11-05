@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions.Infrastructure;
 using Microsoft.EntityFrameworkCore.SqlServer.Diagnostics.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Xunit;
@@ -20,6 +21,7 @@ using Xunit;
 namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
 {
     // clone of https://github.com/dotnet/efcore/blob/v5.0.0-rc.2.20475.6/test/EFCore.Specification.Tests/TestUtilities/TestHelpers.cs
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "EF1001:Internal EF Core API usage.", Justification = "<Pending>")]
     public abstract class TestHelpers
     {
         public DbContextOptions CreateOptions(IModel model, IServiceProvider serviceProvider = null)
@@ -357,6 +359,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
     }
 
     // clone of https://github.com/dotnet/efcore/blob/v5.0.0-rc.2.20475.6/test/EFCore.SqlServer.FunctionalTests/TestUtilities/SqlServerTestHelpers.cs
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "EF1001:Internal EF Core API usage.", Justification = "<Pending>")]
     public class SqlServerTestHelpers : TestHelpers
     {
         protected SqlServerTestHelpers()
@@ -366,7 +369,9 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
         public static SqlServerTestHelpers Instance { get; } = new SqlServerTestHelpers();
 
         public override IServiceCollection AddProviderServices(IServiceCollection services)
-            => services.AddEntityFrameworkSqlServer();
+            => services.AddEntityFrameworkSqlServer()
+           .AddSingleton<IRelationalAnnotationProvider, IdentifierSqlServerAnnotationProvider<int>>()
+           .AddSingleton<IValueConverterSelector, IdentifierValueConverterSelector<int>>();
 
         public override void UseProviderOptions(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseSqlServer(new SqlConnection("Database=DummyDatabase"));

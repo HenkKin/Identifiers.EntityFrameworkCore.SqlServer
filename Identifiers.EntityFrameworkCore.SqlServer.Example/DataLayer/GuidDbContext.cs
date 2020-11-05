@@ -14,11 +14,26 @@ namespace DataAccessClientExample.DataLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ExampleEntity>()
-                .ToTable("ExampleEntities");
-            modelBuilder.Entity<ExampleEntity>()
-             .Property(p=>p.Id)
-             .IdentifierValueGeneratedOnAdd();
+            modelBuilder.Entity<ExampleIdentifierEntity>()
+                .ToTable("ExampleIdentifierEntities");
+
+            modelBuilder.Entity<ExampleIntEntity>()
+                .ToTable("ExampleIntEntities");
+            //modelBuilder.Entity<ExampleIntEntity>()
+            // .Property(p => p.Id)
+            // .IdentifierValueGeneratedOnAdd();
+
+            modelBuilder.Entity<ExampleLongEntity>()
+                .ToTable("ExampleLongEntities");
+            //modelBuilder.Entity<ExampleIntEntity>()
+            // .Property(p => p.Id)
+            // .IdentifierValueGeneratedOnAdd();
+
+            modelBuilder.Entity<ExampleGuidEntity>()
+                .ToTable("ExampleGuidEntities");
+            //modelBuilder.Entity<ExampleIntEntity>()
+            // .Property(p => p.Id)
+            // .IdentifierValueGeneratedOnAdd();
 
 
             base.OnModelCreating(modelBuilder);

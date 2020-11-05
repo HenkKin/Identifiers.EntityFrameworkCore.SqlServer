@@ -10,9 +10,9 @@ namespace DataAccessClientExample.Controllers
     [ApiController]
     public class ValuesController : Controller
     {
-        private readonly IntDbContext _exampleDbContext;
+        private readonly GuidDbContext _exampleDbContext;
 
-        public ValuesController(IntDbContext exampleDbContext)
+        public ValuesController(GuidDbContext exampleDbContext)
         {
             _exampleDbContext = exampleDbContext;
         }
@@ -21,39 +21,39 @@ namespace DataAccessClientExample.Controllers
         [HttpGet]
         public async Task<IActionResult> Test()
         {
-            var exampleEntity1 = new ExampleEntity
+            var exampleEntity1 = new ExampleIdentifierEntity
             {
                 Name = "Henk Kin"
             };
 
-            var exampleEntity2TranslationNlNl = new ExampleEntityTranslation { Description = "Omschrijving", LocaleId = "nl-NL" };
-            var exampleEntity2TranslationEnGb = new ExampleEntityTranslation { Description = "Description", LocaleId = "en-GB" };
-            var exampleEntity2 = new ExampleEntity
+            var exampleEntity2TranslationNlNl = new ExampleIdentifierEntityTranslation { Description = "Omschrijving", LocaleId = "nl-NL" };
+            var exampleEntity2TranslationEnGb = new ExampleIdentifierEntityTranslation { Description = "Description", LocaleId = "en-GB" };
+            var exampleEntity2 = new ExampleIdentifierEntity
             {
                 Name = "Kin Henk",
-                Translations = new List<ExampleEntityTranslation>
+                Translations = new List<ExampleIdentifierEntityTranslation>
                 {
                     exampleEntity2TranslationNlNl,
                     exampleEntity2TranslationEnGb
                 }
             };
 
-            _exampleDbContext.Set<ExampleEntity>().Add(exampleEntity1);
-            _exampleDbContext.Set<ExampleEntity>().Add(exampleEntity2);
+            _exampleDbContext.Set<ExampleIdentifierEntity>().Add(exampleEntity1);
+            _exampleDbContext.Set<ExampleIdentifierEntity>().Add(exampleEntity2);
 
-            await _exampleDbContext.SaveChangesAsync    ();
+            await _exampleDbContext.SaveChangesAsync();
 
             exampleEntity2TranslationNlNl.Description += " geupdated";
-            exampleEntity2.Translations.Add(new ExampleEntityTranslation{ Description = "Comment", LocaleId = "fr-FR"});
+            exampleEntity2.Translations.Add(new ExampleIdentifierEntityTranslation{ Description = "Comment", LocaleId = "fr-FR"});
             exampleEntity2.Name = "Updated example";
 
             await _exampleDbContext.SaveChangesAsync();
 
-            _exampleDbContext.Set<ExampleEntity>().Remove(exampleEntity1);
+            _exampleDbContext.Set<ExampleIdentifierEntity>().Remove(exampleEntity1);
 
             await _exampleDbContext.SaveChangesAsync();
 
-            var entities = await _exampleDbContext.Set<ExampleEntity>().AsNoTracking().ToListAsync();
+            var entities = await _exampleDbContext.Set<ExampleIdentifierEntity>().AsNoTracking().ToListAsync();
            return Json(new{ entities });
         }
 
@@ -61,7 +61,7 @@ namespace DataAccessClientExample.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var exampleEntities = await _exampleDbContext.Set<ExampleEntity>().AsNoTracking()
+            var exampleEntities = await _exampleDbContext.Set<ExampleIdentifierEntity>().AsNoTracking()
                 .ToListAsync();
 
 

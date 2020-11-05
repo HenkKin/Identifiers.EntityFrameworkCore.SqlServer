@@ -4,14 +4,16 @@ using DataAccessClientExample.DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.IntDatabase
 {
     [DbContext(typeof(IntDbContext))]
-    partial class IntDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201105093633_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
