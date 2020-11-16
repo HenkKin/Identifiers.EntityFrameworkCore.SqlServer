@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.SqlServer.Internal;
 using Microsoft.EntityFrameworkCore.SqlServer.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.SqlServer.Migrations.Internal;
 
 namespace Identifiers.EntityFrameworkCore.SqlServer
 {
@@ -66,7 +62,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer
     /// <summary>
     ///     Extension methods for <see cref="IProperty" /> for SQL Server-specific metadata.
     /// </summary>
-    public static class SqlServerPropertyExtensions
+    internal static class SqlServerPropertyExtensions
     {
 
         /// <summary>

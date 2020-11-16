@@ -4,14 +4,16 @@ using DataAccessClientExample.DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.GuidDatabase
+namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.IntDatabase
 {
-    [DbContext(typeof(GuidDbContext))]
-    partial class GuidDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(IntDbContext))]
+    [Migration("20201112065717_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,16 +59,16 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.GuidDatab
 
             modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIdentifierEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newsequentialid()");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("Test")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int?>("Test")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -75,16 +77,16 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.GuidDatab
 
             modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIdentifierEntityTranslation", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newsequentialid()");
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ExampleIdentifierEntityId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ExampleIdentifierEntityId")
+                        .HasColumnType("int");
 
                     b.Property<string>("LocaleId")
                         .HasColumnType("nvarchar(max)");

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.IntDatabase
+namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.LongDatabase
 {
-    public partial class Initial3 : Migration
+    public partial class Initial2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

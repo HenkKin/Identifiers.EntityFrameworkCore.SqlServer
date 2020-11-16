@@ -1,3 +1,4 @@
+using System;
 using DataAccessClientExample.DataLayer;
 using Identifiers.EntityFrameworkCore.SqlServer;
 using Microsoft.AspNetCore.Builder;
@@ -31,19 +32,27 @@ namespace DataAccessClientExample
 
 
 
-            //services.AddDbContextPool<IntDbContext>(conf => conf
-            //    .UseIdentifiers<int>()
-            //    .EnableSensitiveDataLogging()
-            //    .EnableDetailedErrors()
-            //    .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ExampleIdentifiersInt;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
-            //);
+            services.AddDbContextPool<IntDbContext>(conf => conf
+                .UseIdentifiers<int>()
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors()
+                .UseSqlServer(
+                    "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ExampleIdentifiersInt;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
 
+            services.AddDbContextPool<LongDbContext>(conf => conf
+                .UseIdentifiers<long>()
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors()
+                .UseSqlServer(
+                    "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ExampleIdentifiersLong;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+
+            // does not insert new value for Id Guid
             services.AddDbContextPool<GuidDbContext>(conf => conf
-               .UseIdentifiers<int>()
-               .EnableSensitiveDataLogging()
-               .EnableDetailedErrors()
-               .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ExampleIdentifiersGuid;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
-   );
+                .UseIdentifiers<Guid>()
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors()
+                .UseSqlServer(
+                    "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ExampleIdentifiersGuid;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

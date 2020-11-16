@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.IntDatabase
 {
     [DbContext(typeof(IntDbContext))]
-    [Migration("20201105093633_Initial")]
-    partial class Initial
+    [Migration("20201112065758_Initial2")]
+    partial class Initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,7 +19,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.IntDataba
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0-rc.2.20475.6");
+                .HasAnnotation("ProductVersion", "5.0.0");
 
             modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleGuidEntity", b =>
                 {

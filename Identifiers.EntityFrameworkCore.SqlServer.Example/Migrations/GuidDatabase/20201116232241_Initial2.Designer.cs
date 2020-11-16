@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.IntDatabase
+namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.GuidDatabase
 {
-    [DbContext(typeof(IntDbContext))]
-    [Migration("20201105101009_Initial3")]
-    partial class Initial3
+    [DbContext(typeof(GuidDbContext))]
+    [Migration("20201116232241_Initial2")]
+    partial class Initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,7 +19,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.IntDataba
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0-rc.2.20475.6");
+                .HasAnnotation("ProductVersion", "5.0.0");
 
             modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleGuidEntity", b =>
                 {
@@ -59,16 +59,16 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.IntDataba
 
             modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIdentifierEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Test")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("Test")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -77,16 +77,16 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.IntDataba
 
             modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIdentifierEntityTranslation", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("newsequentialid()");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ExampleIdentifierEntityId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ExampleIdentifierEntityId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LocaleId")
                         .HasColumnType("nvarchar(max)");

@@ -1,6 +1,6 @@
 ﻿Update Database
 
-cd [path-to-repository]\Identifiers.EntityFrameworkCore.SqlServeR\Identifiers.EntityFrameworkCore.SqlServer.Example
+cd [path-to-repository]\Identifiers.EntityFrameworkCore.SqlServer\Identifiers.EntityFrameworkCore.SqlServer.Example
 
 dotnet ef migrations Add Initial --context IntDbContext --output-dir Migrations/IntDatabase
 dotnet ef migrations Add Initial --context LongDbContext --output-dir Migrations/LongDatabase

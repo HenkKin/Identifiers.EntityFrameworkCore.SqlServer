@@ -1,6 +1,7 @@
 ﻿using Identifiers.EntityFrameworkCore.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -15,7 +16,18 @@ namespace DataAccessClientExample.DataLayer
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ExampleIdentifierEntity>()
-                .ToTable("ExampleIdentifierEntities");
+                .ToTable("ExampleIdentifierEntities")
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd()
+                .HasDefaultValueSql("newsequentialid()")
+                .Metadata.SetBeforeSaveBehavior(PropertySaveBehavior.Ignore);
+
+            modelBuilder.Entity<ExampleIdentifierEntityTranslation>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd()
+                .HasDefaultValueSql("newsequentialid()")
+                .Metadata.SetBeforeSaveBehavior(PropertySaveBehavior.Ignore);
+
 
             modelBuilder.Entity<ExampleIntEntity>()
                 .ToTable("ExampleIntEntities");

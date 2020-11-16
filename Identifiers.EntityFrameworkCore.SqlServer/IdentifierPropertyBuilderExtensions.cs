@@ -10,12 +10,6 @@ namespace Identifiers.EntityFrameworkCore.SqlServer
         [Obsolete("Using IdentifierValueGeneratedOnAdd is not necessary")]
         public static PropertyBuilder<Identifier> IdentifierValueGeneratedOnAdd(this PropertyBuilder<Identifier> propertyBuilder)
         {
-            //propertyBuilder = propertyBuilder
-            //    .ValueGeneratedOnAdd()
-            //    .HasAnnotation("Identifier", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            //propertyBuilder.Metadata.SetBeforeSaveBehavior(PropertySaveBehavior.Ignore);
-
             return propertyBuilder;
         }
     }

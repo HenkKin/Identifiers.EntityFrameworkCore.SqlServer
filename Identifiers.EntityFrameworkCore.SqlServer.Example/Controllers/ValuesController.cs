@@ -10,17 +10,39 @@ namespace DataAccessClientExample.Controllers
     [ApiController]
     public class ValuesController : Controller
     {
-        private readonly GuidDbContext _exampleDbContext;
+        private readonly IntDbContext _exampleIntDbContext;
+        private readonly LongDbContext _exampleLongDbContext;
+        private readonly GuidDbContext _exampleGuidDbContext;
 
-        public ValuesController(GuidDbContext exampleDbContext)
+        public ValuesController(IntDbContext exampleIntDbContext, LongDbContext exampleLongDbContext, GuidDbContext exampleGuidDbContext)
         {
-            _exampleDbContext = exampleDbContext;
+            _exampleIntDbContext = exampleIntDbContext;
+            _exampleLongDbContext = exampleLongDbContext;
+            _exampleGuidDbContext = exampleGuidDbContext;
         }
 
         [Route("Test")]
         [HttpGet]
-        public async Task<IActionResult> Test()
+        public async Task<IActionResult> Test([FromQuery] string contextName)
         {
+
+            DbContext _exampleDbContext;
+            switch (contextName?.ToLower())
+            {
+                case "int":
+                    _exampleDbContext = _exampleIntDbContext;
+                    break;
+                case "long":
+                    _exampleDbContext = _exampleLongDbContext;
+                    break;
+                case "guid":
+                    _exampleDbContext = _exampleGuidDbContext;
+                    break;
+                default:
+                    _exampleDbContext = _exampleIntDbContext;
+                    break;
+            }
+
             var exampleEntity1 = new ExampleIdentifierEntity
             {
                 Name = "Henk Kin"
@@ -59,8 +81,25 @@ namespace DataAccessClientExample.Controllers
 
         [Route("get-all")]
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery]string contextName)
         {
+            DbContext _exampleDbContext;
+            switch (contextName?.ToLower())
+            {
+                case "int":
+                    _exampleDbContext = _exampleIntDbContext;
+                    break;
+                case "long":
+                    _exampleDbContext = _exampleLongDbContext;
+                    break;
+                case "guid":
+                    _exampleDbContext = _exampleGuidDbContext;
+                    break;
+                default:
+                    _exampleDbContext = _exampleIntDbContext;
+                    break;
+            }
+
             var exampleEntities = await _exampleDbContext.Set<ExampleIdentifierEntity>().AsNoTracking()
                 .ToListAsync();
 

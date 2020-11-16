@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.ValueGeneration;
 using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
@@ -39,6 +41,19 @@ namespace Identifiers.EntityFrameworkCore.SqlServer
             Identifier id = new Identifier(_valueGenerator.Next(entry));
             return id;
         }
+
+        public override async ValueTask<Identifier> NextAsync(EntityEntry entry, CancellationToken cancellationToken = new CancellationToken())
+        {
+            Identifier id = new Identifier(await _valueGenerator.NextAsync(entry, cancellationToken));
+            return id;
+        }
+
+
+        //protected override async ValueTask<Identifier> NextAsync(EntityEntry entry)
+        //{
+        //    Identifier id = new Identifier(await _valueGenerator.NextAsync(entry));
+        //    new ValueTask<Identifier>(Next(entry));
+        //}
 
         public override bool GeneratesTemporaryValues
             => true;

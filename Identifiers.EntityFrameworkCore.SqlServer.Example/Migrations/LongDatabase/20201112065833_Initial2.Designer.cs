@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.GuidDatabase
+namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.LongDatabase
 {
-    [DbContext(typeof(GuidDbContext))]
-    [Migration("20201105095315_Initial")]
-    partial class Initial
+    [DbContext(typeof(LongDbContext))]
+    [Migration("20201112065833_Initial2")]
+    partial class Initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,7 +19,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.GuidDatab
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0-rc.2.20475.6");
+                .HasAnnotation("ProductVersion", "5.0.0");
 
             modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleGuidEntity", b =>
                 {
@@ -59,15 +59,16 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.GuidDatab
 
             modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIdentifierEntity", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("Test")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<long?>("Test")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -76,15 +77,16 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.GuidDatab
 
             modelBuilder.Entity("DataAccessClientExample.DataLayer.ExampleIdentifierEntityTranslation", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ExampleIdentifierEntityId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<long>("ExampleIdentifierEntityId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("LocaleId")
                         .HasColumnType("nvarchar(max)");

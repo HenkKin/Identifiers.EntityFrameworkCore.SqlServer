@@ -23,7 +23,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.GuidDatab
                 name: "ExampleIdentifierEntities",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "newsequentialid()"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Test = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -82,7 +82,7 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Example.Migrations.GuidDatab
                 name: "ExampleIdentifierEntityTranslation",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "newsequentialid()"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocaleId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExampleIdentifierEntityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
