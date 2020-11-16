@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.SqlServer.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.SqlServer.Migrations.Internal;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +10,7 @@ using Xunit;
 
 namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "EF1001:Internal EF Core API usage.", Justification = "<Pending>")]
     public class IdentifierSqlServerDbContextOptionsExtensionsTests
     {
         [Fact]
@@ -24,19 +27,19 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
             var testDbContext = serviceProvider.GetRequiredService<TestDbContext>();
 
             // Act
-            var migrationsAnnotationProvider = testDbContext.GetService<IMigrationsAnnotationProvider>();
+            var relationalAnnotationProvider = testDbContext.GetService<IRelationalAnnotationProvider>();
             var valueConverterSelector = testDbContext.GetService<IValueConverterSelector>();
 
             // Assert
             Assert.NotNull(testDbContext);
-            Assert.NotEqual(typeof(IdentifierMigrationsAnnotationProvider<>), migrationsAnnotationProvider.GetType());
-            Assert.Equal(typeof(SqlServerMigrationsAnnotationProvider), migrationsAnnotationProvider.GetType());
+            Assert.NotEqual(typeof(IdentifierSqlServerAnnotationProvider<>), relationalAnnotationProvider.GetType());
+            Assert.Equal(typeof(SqlServerAnnotationProvider), relationalAnnotationProvider.GetType());
             Assert.NotEqual(typeof(IdentifierValueConverterSelector<int>), valueConverterSelector.GetType());
             Assert.Equal(typeof(ValueConverterSelector), valueConverterSelector.GetType());
         }
 
         [Fact]
-        public void WhenCalled_ItShouldRegisterIdentifierMigrationsAnnotationProvider()
+        public void WhenCalled_ItShouldRegisterIdentifierSqlServerAnnotationProvider()
         {
             // Arrange
             var serviceCollection = new ServiceCollection();
@@ -49,12 +52,13 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
             var testDbContext = serviceProvider.GetRequiredService<TestDbContext>();
 
             // Act
-            var migrationsAnnotationProvider = testDbContext.GetService<IMigrationsAnnotationProvider>();
+            var relationalAnnotationProvider = testDbContext.GetService<IRelationalAnnotationProvider>();
 
             // Assert
             Assert.NotNull(testDbContext);
 
-            Assert.Equal(typeof(IdentifierMigrationsAnnotationProvider<int>), migrationsAnnotationProvider.GetType());
+            Assert.Equal(typeof(IdentifierSqlServerAnnotationProvider<int>), relationalAnnotationProvider.GetType());
+            Assert.NotEqual(typeof(SqlServerAnnotationProvider), relationalAnnotationProvider.GetType());
         }
 
 

@@ -11,45 +11,54 @@ using Xunit;
 namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "EF1001:Internal EF Core API usage.", Justification = "<Pending>")]
-    public class IdentifierMigrationsAnnotationProviderTests
+    public class IdentifierSqlServerAnnotationProviderTests
     {
-        [Fact]
-        public void For_WhenCalledWithoutExistingAnnotation_ItShouldReturnExistingAnnotations()
-        {
-            // Arrange
-            var identifierMigrationsAnnotationProvider = new IdentifierMigrationsAnnotationProvider<int>(new MigrationsAnnotationProviderDependencies());
-            var entityType = new EntityType(typeof(object), new Model(), ConfigurationSource.DataAnnotation);
-            IProperty property = new Property("id", typeof(Identifier), null, null, entityType, ConfigurationSource.DataAnnotation, null);
+        //[Fact]
+        //public void For_WhenCalledWithoutExistingAnnotation_ItShouldReturnExistingAnnotations()
+        //{
+        //    // Arrange
+        //    var modelBuilder = CreateConventionModelBuilder(skipValidation: true);
 
-            // Act
-            var results = identifierMigrationsAnnotationProvider.For(property);
+        //    modelBuilder.Entity<Entity>()
+        //        .HasKey(prop => prop.Id);
 
-            // Assert
-            Assert.Empty(results);
-        }
+        //    var model = modelBuilder.FinalizeModel().GetRelationalModel();
+
+        //    var entityType = model.Model.FindEntityType(typeof(Entity));
+        //    var tableMapping = entityType.GetTableMappings().Single();
+
+        //    var column = tableMapping.Table.Columns.Single(c => c.Name == nameof(Entity.Id));
+
+        //    var identifierMigrationsAnnotationProvider = new IdentifierSqlServerAnnotationProvider<int>(new RelationalAnnotationProviderDependencies());
+
+        //    // Act
+        //    var results = identifierMigrationsAnnotationProvider.For(column).ToList();
+
+        //    // Assert
+        //    Assert.Empty(results);
+        //}
 
         [Fact]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "EF1001:Internal EF Core API usage.", Justification = "<Pending>")]
         public void For_WhenCalledForPropertyWithExistingAnnotations_ItShouldReturnExistingAnnotations()
         {
             // Arrange
-            var identifierMigrationsAnnotationProvider = new IdentifierMigrationsAnnotationProvider<int>(new MigrationsAnnotationProviderDependencies());
+            var modelBuilder = CreateConventionModelBuilder(skipValidation:true);
 
-            var conventionSet = new ConventionSet();
-            var model = new Model(conventionSet);
-            model.AddAnnotation(SqlServerAnnotationNames.ValueGenerationStrategy,
-                SqlServerValueGenerationStrategy.IdentityColumn);
+            modelBuilder.Entity<Entity>()
+                .HasKey(prop => prop.Id);
 
-            var converter = new IdentifierValueConverter<int>(new ConverterMappingHints(valueGeneratorFactory: (property1, type) => new IdentifierValueGenerator<int>()));
+            var model = modelBuilder.FinalizeModel().GetRelationalModel();
 
-            var property = model.AddEntityType(typeof(Entity), ConfigurationSource.Explicit)
-                .AddProperty("Id", typeof(Identifier), ConfigurationSource.Explicit, ConfigurationSource.Explicit);
-            property.ValueGenerated = ValueGenerated.OnAdd;
-            property.SetValueConverter(converter);
-            property.AddAnnotation("Identifier", SqlServerValueGenerationStrategy.IdentityColumn);
+            var entityType = model.Model.FindEntityType(typeof(Entity));
+            var tableMapping = entityType.GetTableMappings().Single();
+
+            var column = tableMapping.Table.Columns.Single(c=>c.Name == nameof(Entity.Id));
+
+            var identifierMigrationsAnnotationProvider = new IdentifierSqlServerAnnotationProvider<int>(new RelationalAnnotationProviderDependencies());
 
             // Act
-            var results = identifierMigrationsAnnotationProvider.For(property).ToList();
+            var results = identifierMigrationsAnnotationProvider.For(column).ToList();
 
             // Assert
             Assert.Single(results);
@@ -61,5 +70,8 @@ namespace Identifiers.EntityFrameworkCore.SqlServer.Tests
         {
             public Identifier Id { get; set; }
         }
+
+        protected virtual ModelBuilder CreateConventionModelBuilder(bool skipValidation = false)
+            => SqlServerTestHelpers.Instance.CreateConventionBuilder(skipValidation: skipValidation);
     }
 }
